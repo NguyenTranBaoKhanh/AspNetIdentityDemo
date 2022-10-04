@@ -1,5 +1,6 @@
 ﻿using AspNetIdentityDemo.Api.Services;
 using AspNetIdentityDemo.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -8,6 +9,7 @@ namespace AspNetIdentityDemo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class AuthController : ControllerBase
     {
         private IUserService _userService;
@@ -42,6 +44,7 @@ namespace AspNetIdentityDemo.Api.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Password = "Bk.123";
                 var result = await _userService.LoginUserAsync(model);
 
                 if (result.IsSuccess)

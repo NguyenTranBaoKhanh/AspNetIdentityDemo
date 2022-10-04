@@ -83,17 +83,17 @@ namespace AspNetIdentityDemo.Api.Services
             {
                 return new UserManagerResponse
                 {
-                    Message = "Invalif password",
+                    Message = "Invalid password",
                     IsSuccess = false,
                 };
             }
 
             var claims = new[]
             {
-                new Claim("Email", model.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim("Email", model.Email),
                 new Claim("Bao", "khanh"),
-                new Claim("nguyen", "tran"),
+                new Claim("Nguyen", "tran"),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
@@ -103,7 +103,8 @@ namespace AspNetIdentityDemo.Api.Services
                 audience: _configuration["AuthSettings:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddDays(30),
-                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                );
 
             string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
 
