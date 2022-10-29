@@ -1,4 +1,5 @@
-﻿using AspNetIdentityDemo.Shared;
+﻿using AspNetIdentityDemo.Api.Models;
+using AspNetIdentityDemo.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,10 +17,10 @@ namespace AspNetIdentityDemo.Api.Services
 
     public class UserService : IUserService
     {
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<User> _userManager;
         private IConfiguration _configuration;
 
-        public UserService(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public UserService(UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -38,13 +39,13 @@ namespace AspNetIdentityDemo.Api.Services
                 };
             }
 
-            var identityUser = new IdentityUser
+            var user = new User
             {
                 Email = model.Email,
                 UserName = model.Email,
             };
 
-            var result = await _userManager.CreateAsync(identityUser, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
@@ -90,7 +91,6 @@ namespace AspNetIdentityDemo.Api.Services
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim("Email", model.Email),
                 new Claim("Bao", "khanh"),
                 new Claim("Nguyen", "tran"),

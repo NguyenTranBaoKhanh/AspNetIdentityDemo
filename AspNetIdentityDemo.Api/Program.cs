@@ -53,7 +53,7 @@ namespace AspNetIdentityDemo.Api
             builder.Services.AddDbContext<ApplicationDbContext>(options => options
             .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnetion")));
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
@@ -88,6 +88,7 @@ namespace AspNetIdentityDemo.Api
             });
 
             builder.Services.AddScoped<IUserService, UserService>();
+            // builder.Services.AddTransient<IMailService, SendGridMailService>();
 
             var app = builder.Build();
 

@@ -13,9 +13,11 @@ namespace AspNetIdentityDemo.Api.Controllers
     public class AuthController : ControllerBase
     {
         private IUserService _userService;
+        // private IMailService _mailService;
         public AuthController(IUserService userService)
         {
             _userService = userService;
+            // _mailService = mailService;
         }
 
         // "email": "user@example.com",
@@ -49,6 +51,7 @@ namespace AspNetIdentityDemo.Api.Controllers
 
                 if (result.IsSuccess)
                 {
+                    
                     return Ok(result); // Status code: 200
                 }
                 return BadRequest(result);
