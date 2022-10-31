@@ -1,0 +1,5 @@
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add NameMigrations
+dotnet ef database update
+dotnet ef database drop
+dotnet ef migrations remove
